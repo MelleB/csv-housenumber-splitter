@@ -1,0 +1,7 @@
+*.csv
+hnsplit
+hnsplit.hi
+hnsplit.o
+cabal-dev
+dist
+
