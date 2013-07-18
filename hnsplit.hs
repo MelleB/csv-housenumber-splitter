@@ -8,6 +8,9 @@ import Data.Text hiding (map, head, length, take, drop)
 import qualified Data.Text as T (drop, length)
 import Data.Text.IO (readFile, writeFile)
 
+separator :: Text
+separator = ";"
+
 main :: IO ()
 main = do
     args <- getArgs
@@ -15,7 +18,7 @@ main = do
     case args of
       ["0", _] -> showUsage prog
       [i, fn]  -> runProgram (read i) fn
-      _         -> showUsage prog
+      _        -> showUsage prog
 
 runProgram :: Int -> FilePath -> IO ()
 runProgram i fn = do
@@ -32,8 +35,8 @@ processLines i ls  = header : rows
 splitColumn :: (Text -> [Text]) -> Int -> Text -> Text
 splitColumn f i ln
     | i - 1 > length cols = ln
-    | otherwise           = intercalate ";" newCols
-  where cols     = splitOn ";" ln
+    | otherwise           = intercalate separator newCols
+  where cols     = splitOn separator ln
         newCols  = replaceAt (f $ cols !! i) i cols
 
 replaceAt :: [a] -> Int -> [a] -> [a]
